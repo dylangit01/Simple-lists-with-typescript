@@ -1,13 +1,14 @@
 import React from 'react';
+import { IState as IProps } from '../App';		// Cannot import as '../App.tsx'
 
-interface IProps {
-	people: {
-		name: string;
-		age: number;
-		url: string;
-		note?: string;
-	}[];
-}
+// interface IProps {
+// 	people: {
+// 		name: string;
+// 		age: number;
+// 		url: string;
+// 		note?: string;
+// 	}[];
+// }
 
 // Specific the component type with the props type: React.FC<IProps>
 
