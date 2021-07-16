@@ -3,8 +3,7 @@ import { IState as Props } from '../App';
 
 interface IProps {
 	people: Props['people'];
-	setPeople: React.Dispatch<
-		React.SetStateAction<Props['people']>>
+	setPeople: React.Dispatch<React.SetStateAction<Props['people']>>;
 }
 
 const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
@@ -12,10 +11,10 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
 		name: '',
 		age: '',
 		note: '',
-		img: '',
+		url: '',
 	});
 
-	const { name, age, note, img } = input;
+	const { name, age, note, url } = input;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
 		setInput({
@@ -24,13 +23,18 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
 		});
 	};
 	const handleClick = (): void => {
+		if (!input.name || !input.age || !input.url) return;
+
 		const newPerson = {
 			name: input.name,
-			age: input.age,
-			url: input.img,
+			age: parseInt(input.age),
+			url: input.url,
 			note: input.note,
 		};
-	};
+		setPeople([...people, newPerson]);
+
+		setInput({ name: '', age: '', note: '', url: '' });
+	}; 
 
 	return (
 		<div className='AddToList'>
@@ -45,17 +49,17 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
 			<input
 				value={age}
 				onChange={(e) => handleChange(e)}
-				type='text'
+				type='number'
 				placeholder='Age'
 				name='age'
 				className='AddToList-input'
 			/>
 			<input
-				value={img}
+				value={url}
 				onChange={(e) => handleChange(e)}
 				type='text'
 				placeholder='Url'
-				name='img'
+				name='url'
 				className='AddToList-input'
 			/>
 			<textarea
